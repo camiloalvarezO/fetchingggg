@@ -1,20 +1,22 @@
 const cargarJSONBtn = document.querySelector('#cargarJSON');
-cargarJSONBtn.addEventListener('click', obtenerDatos)
+cargarJSONBtn.addEventListener('click', leerJSON)
 
-function obtenerDatos(){
-    url = 'data/empleado.json'
-    fetch(url).then(resultado => resultado.json())
-    .then(datos => mostrarHTML(datos));
+
+function leerJSON(){
+    
+    fetch('/data/empleado.json')
+        .then(resultado => resultado.json())
+        .then(respuesta => mostrarHTML(respuesta));
 }
 
-function mostrarHTML({empresa,nombre,trabajo,id}){
 
-    const h1 = document.querySelector('h1')
+function mostrarHTML({nombre,id,empresa,trabajo}){
+    const contenido = document.querySelector('.contenido');
 
-    h1.innerHTML = `
-        <p>empresa: ${empresa}</p>
-        <p>nombre: ${nombre}</p>
-        <p>trabajo: ${trabajo}</p>
-        <p>id: ${id}</p>
+    contenido.innerHTML = `
+        <p>${nombre}</p>
+        <p>${id}</p>
+        <p>${empresa}</p>
+        <p>${trabajo}</p>
     `
 }
